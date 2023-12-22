@@ -1,58 +1,58 @@
 package com.expense.api.controller;
 
 import com.expense.api.dto.CategoryDto;
-import com.expense.api.dto.ExpenseDto;
 import com.expense.api.entity.Category;
-import com.expense.api.entity.Expense;
-import com.expense.api.service.ExpenseService;
+import com.expense.api.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
-
+import java.util.List;
 @RestController
-@RequestMapping("api/v1/expenses")
-public class ExpenseController {
+@RequestMapping("api/v1/category")
+
+public class CategoryController {
 
     @Autowired
-    ExpenseService expenseService;
+    CategoryService categoryService;
 
-    @GetMapping("/expense-list")
-    public ResponseEntity<Object> getAllExpenses() {
+    @GetMapping("/category-list")
+    public ResponseEntity<Object> getAllCategories() {
         try {
-            List<Expense> expenses = expenseService.listAll();
+            List<Category> expenses = categoryService.listAll();
             return ResponseEntity.status(HttpStatus.OK).body(expenses);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la lista de categorias");
         }
     }
 
-//    @ApiOperation("Webservice para eliminar un costo por zona asociado a un profesional.")
+    //    @ApiOperation("Webservice para eliminar un costo por zona asociado a un profesional.")
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getExpense(
+    public ResponseEntity<Object> getCategory(
             @PathVariable("id") Long id
     ) {
         try {
-            Expense expense = expenseService.getById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(expense);
+            Category category = categoryService.getById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(category);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la categoria");
         }
+
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> createExpense(
+    public ResponseEntity<Object> createCategory(
             @PathVariable("id") Long id,
-            @RequestBody() ExpenseDto expenseDto
+            @RequestBody() CategoryDto categoryDto
     ) {
-        Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getDate(), expenseDto.getCategory());
+        Category category = new Category(categoryDto.getName());
         try {
-            Expense newExpense = expenseService.create(expense);
-            return ResponseEntity.status(HttpStatus.OK).body(newExpense);
+            Category newCategory = categoryService.create(category);
+            return ResponseEntity.status(HttpStatus.OK).body(newCategory);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear la categoria");
         }
+
     }
 }
