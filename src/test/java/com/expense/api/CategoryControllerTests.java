@@ -2,11 +2,8 @@ package com.expense.api;
 
 import com.expense.api.constants.Constants;
 import com.expense.api.controller.CategoryController;
-import com.expense.api.controller.ExpenseController;
 import com.expense.api.entity.Category;
-import com.expense.api.entity.Expense;
 import com.expense.api.service.CategoryService;
-import com.expense.api.service.ExpenseService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
