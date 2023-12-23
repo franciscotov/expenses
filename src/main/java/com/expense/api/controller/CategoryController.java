@@ -1,5 +1,6 @@
 package com.expense.api.controller;
 
+import com.expense.api.constants.Constants;
 import com.expense.api.dto.CategoryDto;
 import com.expense.api.dto.ExpenseDto;
 import com.expense.api.entity.Category;
@@ -25,7 +26,7 @@ public class CategoryController {
             List<Category> categories = categoryService.listAll();
             return ResponseEntity.status(HttpStatus.OK).body(categories);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la lista de categorias");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_GET_CATEGORIES);
         }
     }
 
@@ -38,7 +39,7 @@ public class CategoryController {
             Category category = categoryService.getById(id);
             return ResponseEntity.status(HttpStatus.OK).body(category);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la categoria");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_GET_CATEGORY);
         }
 
     }
@@ -50,9 +51,9 @@ public class CategoryController {
         Category category = new Category(categoryDto.getName());
         try {
             categoryService.create(category);
-            return ResponseEntity.status(HttpStatus.OK).body("Se ha creado la categoria: " + categoryDto.getName());
+            return ResponseEntity.status(HttpStatus.OK).body(Constants.CATEGORY_CREATED + categoryDto.getName());
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear la categoria");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_CREATE_CATEGORY);
         }
     }
 
@@ -62,9 +63,9 @@ public class CategoryController {
     ) {
         try {
             categoryService.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Eliminada correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(Constants.CATEGORY_DELETED);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo eliminar el categoria");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_DELETE_CATEGORY);
         }
     }
 
@@ -78,7 +79,7 @@ public class CategoryController {
             Category categoryUpdated = categoryService.update(category);
             return ResponseEntity.status(HttpStatus.OK).body(categoryUpdated);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo actualizar el categoria");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_UPDATE_CATEGORY);
         }
     }
 }
