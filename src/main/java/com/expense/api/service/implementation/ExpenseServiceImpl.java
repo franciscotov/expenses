@@ -24,7 +24,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public Expense create(Expense entity) {
+    public int create(Expense entity) {
         return expenseRepository.insertExpense(entity);
     }
 

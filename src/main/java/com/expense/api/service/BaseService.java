@@ -8,7 +8,7 @@ public interface BaseService<T> {
 
     T getById(Long id);
 
-    T create(T entity);
+    int create(T entity);
 
     T update(T entity);
 

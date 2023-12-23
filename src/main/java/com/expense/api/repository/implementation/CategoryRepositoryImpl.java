@@ -5,14 +5,9 @@ import com.expense.api.entity.Category;
 import com.expense.api.mapper.CategoryRowMapper;
 import com.expense.api.repository.CategoryRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class CategoryRepositoryImpl implements CategoryRepository {
@@ -41,19 +36,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public Category create(Category expense) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-
-        int rowsAffected = jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(INSERT_CATEGORY, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, expense.getName());
-            return ps;
-        }, keyHolder);
-
-        if (rowsAffected > 0) {
-            Long userId = Objects.requireNonNull(keyHolder.getKey()).longValue();
-            expense.setId(userId);
-        }
-        return new Category();
+    public int create(Category category) {
+        return jdbcTemplate.update(INSERT_CATEGORY, category.getName());
     }
 }

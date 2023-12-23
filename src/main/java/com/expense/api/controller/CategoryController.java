@@ -48,8 +48,8 @@ public class CategoryController {
     ) {
         Category category = new Category(categoryDto.getName());
         try {
-            Category newCategory = categoryService.create(category);
-            return ResponseEntity.status(HttpStatus.OK).body(newCategory);
+            categoryService.create(category);
+            return ResponseEntity.status(HttpStatus.OK).body("Se ha creado la categoria: " + categoryDto.getName());
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear la categoria");
         }

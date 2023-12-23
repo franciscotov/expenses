@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(Category entity) {
+    public int create(Category entity) {
         return categoryRepository.create(entity);
     }
 

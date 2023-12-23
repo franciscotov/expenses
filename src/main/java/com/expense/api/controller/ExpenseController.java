@@ -49,8 +49,8 @@ public class ExpenseController {
     ) {
         Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getCategory(), expenseDto.getDescription());
         try {
-            Expense newExpense = expenseService.create(expense);
-            return ResponseEntity.status(HttpStatus.OK).body(newExpense);
+            expenseService.create(expense);
+            return ResponseEntity.status(HttpStatus.OK).body("Se ha creado el gasto con los siguientes atributos" +expenseDto);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear la categoria");
         }
