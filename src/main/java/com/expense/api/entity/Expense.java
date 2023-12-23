@@ -6,7 +6,7 @@ public class Expense {
 
     public Long id;
     private Float amount;
-    private Category category;
+    private Long categoryId;
 
     private String description;
 //    @OneToOne
@@ -23,25 +23,25 @@ public class Expense {
         this.description = description;
     }
 
-    public Expense(Float amount, Category category, String description) {
-        this.amount = amount;
-        this.category = category;
-        this.description = description;
-    }
-
-    public Expense(Long id, Float amount, Category category, String description) {
+    public Expense(Long id, Float amount, Long categoryId, String description) {
         this.id = id;
         this.amount = amount;
-        this.category = category;
+        this.categoryId = categoryId;
         this.description = description;
     }
 
-    public Category getCategory() {
-        return category;
+    public Expense(Float amount, Long categoryId, String description) {
+        this.amount = amount;
+        this.categoryId = categoryId;
+        this.description = description;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public Long getId() {
@@ -69,7 +69,8 @@ public class Expense {
         return "Expense{" +
                 "id=" + id +
                 ", amount=" + amount +
-                ", expenseCategory=" + category +
+                ", categoryId=" + categoryId +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

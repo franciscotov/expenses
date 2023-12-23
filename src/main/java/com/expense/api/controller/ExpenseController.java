@@ -47,7 +47,7 @@ public class ExpenseController {
             @PathVariable("id") Long id,
             @RequestBody() ExpenseDto expenseDto
     ) {
-        Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getCategory(), expenseDto.getDescription());
+        Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getCategoryId(), expenseDto.getDescription());
         try {
             expenseService.create(expense);
             return ResponseEntity.status(HttpStatus.OK).body("Se ha creado el gasto con los siguientes atributos" +expenseDto);
