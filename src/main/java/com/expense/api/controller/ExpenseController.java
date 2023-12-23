@@ -1,5 +1,6 @@
 package com.expense.api.controller;
 
+import com.expense.api.constants.Constants;
 import com.expense.api.dto.CategoryDto;
 import com.expense.api.dto.ExpenseDto;
 import com.expense.api.entity.Category;
@@ -25,7 +26,7 @@ public class ExpenseController {
             List<Expense> expenses = expenseService.listAll();
             return ResponseEntity.status(HttpStatus.OK).body(expenses);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la lista de categorias");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_GET_EXPENSES);
         }
     }
 
@@ -38,7 +39,7 @@ public class ExpenseController {
             Expense expense = expenseService.getById(id);
             return ResponseEntity.status(HttpStatus.OK).body(expense);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener el gasto");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_GET_EXPENSE);
         }
     }
 

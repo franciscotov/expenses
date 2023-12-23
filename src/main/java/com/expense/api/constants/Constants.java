@@ -17,4 +17,6 @@ public class Constants {
     public static final String GET_CATEGORIES = "SELECT id, name FROM "+ DB_NAME_CATEGORY + " ;";
     public static final String DELETE_CATEGORY_BY_ID = "DELETE FROM " + DB_NAME_CATEGORY + " WHERE id = ?;";
     public static final String UPDATE_CATEGORY = "UPDATE " + DB_NAME_CATEGORY + " SET name = ? WHERE id = ?;";
+    public static final String  CANT_GET_EXPENSE = "No se pudo obtener el gasto";
+    public static final String  CANT_GET_EXPENSES = "No se pudo obtener la lista de categorias";
 }
