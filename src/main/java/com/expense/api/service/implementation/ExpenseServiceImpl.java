@@ -30,11 +30,11 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Expense update(Expense entity) {
-        return null;
+        return expenseRepository.update(entity);
     }
 
     @Override
     public void delete(Long id) {
-
+        expenseRepository.delete(id);
     }
 }

@@ -25,7 +25,6 @@ public class ExpenseController {
             List<Expense> expenses = expenseService.listAll();
             return ResponseEntity.status(HttpStatus.OK).body(expenses);
         } catch (Exception e) {
-            System.out.println(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la lista de categorias");
         }
     }
@@ -39,7 +38,6 @@ public class ExpenseController {
             Expense expense = expenseService.getById(id);
             return ResponseEntity.status(HttpStatus.OK).body(expense);
         } catch (Exception e) {
-            System.out.println(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener el gasto");
         }
     }
@@ -54,6 +52,32 @@ public class ExpenseController {
             return ResponseEntity.status(HttpStatus.OK).body("Se ha creado el gasto con los siguientes atributos" +expenseDto);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el gasto");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteExpense(
+            @PathVariable("id") Long id
+    ) {
+        try {
+            expenseService.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Eliminado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo eliminar el gasto");
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateExpense(
+            @PathVariable("id") Long id,
+            @RequestBody() ExpenseDto expenseDto
+    ) {
+        try {
+            Expense expense = new Expense(id, expenseDto.getAmount(), expenseDto.getCategoryId(), expenseDto.getDescription());
+            Expense expenseUpdated = expenseService.update(expense);
+            return ResponseEntity.status(HttpStatus.OK).body(expenseUpdated);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo actualizar el gasto");
         }
     }
 }

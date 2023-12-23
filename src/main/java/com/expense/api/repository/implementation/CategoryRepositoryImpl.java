@@ -15,6 +15,10 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private String INSERT_CATEGORY = Constants.INSERT_CATEGORY;
     private String GET_CATEGORY = Constants.GET_CATEGORY;
     private String GET_CATEGORIES = Constants.GET_CATEGORIES;
+    private String DELETE_CATEGORY_BY_ID = Constants.DELETE_CATEGORY_BY_ID;
+    private String UPDATE_CATEGORY = Constants.UPDATE_CATEGORY;
+
+
 
 
     public CategoryRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -36,7 +40,18 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
+    public void delete(Long id) {
+        jdbcTemplate.update(DELETE_CATEGORY_BY_ID, id);
+    }
+
+    @Override
     public int create(Category category) {
         return jdbcTemplate.update(INSERT_CATEGORY, category.getName());
+    }
+
+    @Override
+    public Category update(Category category) {
+        jdbcTemplate.update(UPDATE_CATEGORY, category.getName(), category.getId());
+        return this.getById(category.getId());
     }
 }

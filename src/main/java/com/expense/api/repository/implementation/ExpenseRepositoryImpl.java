@@ -15,6 +15,8 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
     private String INSERT_EXPENSE = Constants.INSERT_EXPENSE;
     private String GET_EXPENSE = Constants.GET_EXPENSE;
     private String GET_ALL_EXPENSES = Constants.GET_ALL_EXPENSES;
+    private String DELETE_EXPENSE_BY_ID = Constants.DELETE_EXPENSE_BY_ID;
+    private String UPDATE_EXPENSE = Constants.UPDATE_EXPENSE;
 
     public ExpenseRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -37,5 +39,16 @@ public class ExpenseRepositoryImpl implements ExpenseRepository {
     @Override
     public List<Expense> listAll() {
         return jdbcTemplate.query(GET_ALL_EXPENSES, new ExpenseRowMapper());
+    }
+
+    @Override
+    public void delete(Long id) {
+        jdbcTemplate.update(DELETE_EXPENSE_BY_ID, id);
+    }
+
+    @Override
+    public Expense update(Expense expense) {
+        jdbcTemplate.update(UPDATE_EXPENSE, expense.getAmount(), expense.getCategoryId(), expense.getDescription(), expense.getId());
+        return this.getById(expense.getId());
     }
 }

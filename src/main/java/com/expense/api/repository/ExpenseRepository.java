@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ExpenseRepository {
     int create(Expense expense);
-
     Expense getById(Long id);
     List<Expense> listAll();
+    void delete(Long id);
+    Expense update(Expense expense);
 }

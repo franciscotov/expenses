@@ -31,11 +31,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category entity) {
-        return null;
+        return categoryRepository.update(entity);
     }
 
     @Override
     public void delete(Long id) {
-
+        categoryRepository.delete(id);
     }
 }

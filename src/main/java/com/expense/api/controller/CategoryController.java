@@ -1,7 +1,9 @@
 package com.expense.api.controller;
 
 import com.expense.api.dto.CategoryDto;
+import com.expense.api.dto.ExpenseDto;
 import com.expense.api.entity.Category;
+import com.expense.api.entity.Expense;
 import com.expense.api.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +25,6 @@ public class CategoryController {
             List<Category> categories = categoryService.listAll();
             return ResponseEntity.status(HttpStatus.OK).body(categories);
         } catch (Exception e) {
-            System.out.println(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la lista de categorias");
         }
     }
@@ -53,6 +54,31 @@ public class CategoryController {
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear la categoria");
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteCategory(
+            @PathVariable("id") Long id
+    ) {
+        try {
+            categoryService.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Eliminada correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo eliminar el categoria");
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateCategory(
+            @PathVariable("id") Long id,
+            @RequestBody() CategoryDto categoryDto
+    ) {
+        try {
+            Category category = new Category(id, categoryDto.getName());
+            Category categoryUpdated = categoryService.update(category);
+            return ResponseEntity.status(HttpStatus.OK).body(categoryUpdated);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo actualizar el categoria");
+        }
     }
 }
