@@ -44,7 +44,6 @@ public class ExpenseController {
 
     @PostMapping("/")
     public ResponseEntity<Object> createExpense(
-            @PathVariable("id") Long id,
             @RequestBody() ExpenseDto expenseDto
     ) {
         Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getCategoryId(), expenseDto.getDescription());
@@ -52,7 +51,8 @@ public class ExpenseController {
             expenseService.create(expense);
             return ResponseEntity.status(HttpStatus.OK).body("Se ha creado el gasto con los siguientes atributos" +expenseDto);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear la categoria");
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el gasto");
         }
     }
 }
