@@ -19,4 +19,10 @@ public class Constants {
     public static final String UPDATE_CATEGORY = "UPDATE " + DB_NAME_CATEGORY + " SET name = ? WHERE id = ?;";
     public static final String  CANT_GET_EXPENSE = "No se pudo obtener el gasto";
     public static final String  CANT_GET_EXPENSES = "No se pudo obtener la lista de categorias";
+    public static final String  EXPENSE_CREATED = "Se ha creado el gasto con los siguientes atributos";
+    public static final String  CANT_CREATE_EXPENSE = "No se pudo crear el gasto";
+    public static final String  EXPENSE_DELETED = "Eliminado correctamente";
+    public static final String  CANT_DELETE_EXPENSE = "No se pudo eliminar el gasto";
+    public static final String  CANT_UPDATE_EXPENSE = "No se pudo actualizar el gasto";
+
 }

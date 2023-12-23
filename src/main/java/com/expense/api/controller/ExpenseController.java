@@ -1,9 +1,7 @@
 package com.expense.api.controller;
 
 import com.expense.api.constants.Constants;
-import com.expense.api.dto.CategoryDto;
 import com.expense.api.dto.ExpenseDto;
-import com.expense.api.entity.Category;
 import com.expense.api.entity.Expense;
 import com.expense.api.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/expenses")
@@ -50,9 +48,9 @@ public class ExpenseController {
         Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getCategoryId(), expenseDto.getDescription());
         try {
             expenseService.create(expense);
-            return ResponseEntity.status(HttpStatus.OK).body("Se ha creado el gasto con los siguientes atributos" +expenseDto);
+            return ResponseEntity.status(HttpStatus.OK).body(Constants.EXPENSE_CREATED +expenseDto);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el gasto");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_CREATE_EXPENSE);
         }
     }
 
@@ -62,9 +60,9 @@ public class ExpenseController {
     ) {
         try {
             expenseService.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Eliminado correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(Constants.EXPENSE_DELETED);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo eliminar el gasto");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_DELETE_EXPENSE);
         }
     }
 
@@ -78,7 +76,7 @@ public class ExpenseController {
             Expense expenseUpdated = expenseService.update(expense);
             return ResponseEntity.status(HttpStatus.OK).body(expenseUpdated);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo actualizar el gasto");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.CANT_UPDATE_EXPENSE);
         }
     }
 }
