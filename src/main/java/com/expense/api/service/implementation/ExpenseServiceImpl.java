@@ -15,12 +15,12 @@ public class ExpenseServiceImpl implements ExpenseService {
     private ExpenseRepository expenseRepository;
     @Override
     public List<Expense> listAll() {
-        return null;
+        return expenseRepository.listAll();
     }
 
     @Override
     public Expense getById(Long id) {
-        return null;
+        return expenseRepository.getById(id);
     }
 
     @Override

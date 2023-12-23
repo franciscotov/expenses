@@ -25,6 +25,7 @@ public class ExpenseController {
             List<Expense> expenses = expenseService.listAll();
             return ResponseEntity.status(HttpStatus.OK).body(expenses);
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la lista de categorias");
         }
     }
@@ -38,7 +39,8 @@ public class ExpenseController {
             Expense expense = expenseService.getById(id);
             return ResponseEntity.status(HttpStatus.OK).body(expense);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la categoria");
+            System.out.println(e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener el gasto");
         }
     }
 
@@ -51,7 +53,6 @@ public class ExpenseController {
             expenseService.create(expense);
             return ResponseEntity.status(HttpStatus.OK).body("Se ha creado el gasto con los siguientes atributos" +expenseDto);
         } catch (Exception e){
-            System.out.println(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo crear el gasto");
         }
     }
