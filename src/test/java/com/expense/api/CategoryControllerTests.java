@@ -1,8 +1,11 @@
 package com.expense.api;
 
 import com.expense.api.constants.Constants;
+import com.expense.api.controller.CategoryController;
 import com.expense.api.controller.ExpenseController;
+import com.expense.api.entity.Category;
 import com.expense.api.entity.Expense;
+import com.expense.api.service.CategoryService;
 import com.expense.api.service.ExpenseService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,68 +23,69 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.lenient;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.mockito.Mockito.lenient;
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
-public class ExpenseControllerTests {
+public class CategoryControllerTests {
 
-    String basePath = "/api/v1/expenses";
-    String getExpensePath = "/{id}";
-    String getExpensesPath = "/expense-list";
+
+    String basePath = "/api/v1/category";
+    String getCategoryPath = "/{id}";
+    String getCategoriesPath = "/category-list";
 
     @InjectMocks
-    private ExpenseController expenseController;
+    private CategoryController categoryController;
     @MockBean
-    private ExpenseService expenseService;
+    private CategoryService categoryService;
     @Autowired
     private MockMvc mockMvc;
 
-    Expense expenseObj = new Expense(100F, 1L,"ultimo gasto de diciembre");
-    List<Expense> expenses = new ArrayList<>();
+    Category categoryObj = new Category("comida");
+    List<Category> categories = new ArrayList<>();
 
     @Test
-    /* [getExpense] bad response 400 */
-    public void getExpenseBadRequest() throws Exception  {
-        lenient().when(expenseService.getById(any(Long.class))).thenThrow();
-        mockMvc.perform(get(basePath + getExpensePath, 1)
+    /* [getCategory] bad response 400 */
+    public void getCategoryBadRequest() throws Exception  {
+        lenient().when(categoryService.getById(any(Long.class))).thenThrow();
+        mockMvc.perform(get(basePath + getCategoryPath, 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(Constants.CANT_GET_EXPENSE));
+                .andExpect(content().string(Constants.CANT_GET_CATEGORY));
     }
 
     @Test
-    /* [getExpense] OK response 200 */
-    public void getExpenseOk() throws Exception  {
-        lenient().when(expenseService.getById(any(Long.class))).thenReturn(expenseObj);
-        mockMvc.perform(get(basePath + getExpensePath, 1L)
+    /* [getCategory] OK response 200 */
+    public void getCategoryOk() throws Exception  {
+        lenient().when(categoryService.getById(any(Long.class))).thenReturn(categoryObj);
+        mockMvc.perform(get(basePath + getCategoryPath, 1L)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    /* [getExpenses] bad response 400 */
-    public void getAllExpensesBadRequest() throws Exception  {
-        lenient().when(expenseService.listAll()).thenThrow();
-        mockMvc.perform(get(basePath + getExpensesPath)
+    /* [getCategories] bad response 400 */
+    public void getAllCategoriesBadRequest() throws Exception  {
+        lenient().when(categoryService.listAll()).thenThrow();
+        mockMvc.perform(get(basePath + getCategoriesPath)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string(Constants.CANT_GET_EXPENSES));
+                .andExpect(content().string(Constants.CANT_GET_CATEGORIES));
     }
 
     @Test
-    /* [getExpenses] OK response 200 */
-    public void getAllExpensesOk() throws Exception  {
-        lenient().when(expenseService.listAll()).thenReturn(expenses);
-        mockMvc.perform(get(basePath + getExpensesPath)
+    /* [getCategories] OK response 200 */
+    public void getAllCategoriesOk() throws Exception  {
+        lenient().when(categoryService.listAll()).thenReturn(categories);
+        mockMvc.perform(get(basePath + getCategoriesPath)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
