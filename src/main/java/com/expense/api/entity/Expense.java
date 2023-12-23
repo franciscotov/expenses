@@ -6,22 +6,34 @@ public class Expense {
 
     public Long id;
     private Float amount;
-    private Date date;
     private Category category;
+
+    private String description;
+//    @OneToOne
+//    @JoinColumn(name="id_tipo_cuenta",referencedColumnName = "id")
+//    private TipoCuenta tipoCuenta;
     public Expense() {
     }
 
-    public Expense(Float amount, Date date, Category category) {
-        this.amount = amount;
-        this.date = date;
-        this.category = category;
+    public String getDescription() {
+        return description;
     }
 
-    public Expense(Long id, Float amount, Date date, Category category) {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Expense(Float amount, Category category, String description) {
+        this.amount = amount;
+        this.category = category;
+        this.description = description;
+    }
+
+    public Expense(Long id, Float amount, Category category, String description) {
         this.id = id;
         this.amount = amount;
-        this.date = date;
         this.category = category;
+        this.description = description;
     }
 
     public Category getCategory() {
@@ -48,14 +60,6 @@ public class Expense {
         this.amount = amount;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     private int counter(){
         return 1;
     }
@@ -65,7 +69,6 @@ public class Expense {
         return "Expense{" +
                 "id=" + id +
                 ", amount=" + amount +
-                ", date=" + date +
                 ", expenseCategory=" + category +
                 '}';
     }

@@ -47,7 +47,7 @@ public class ExpenseController {
             @PathVariable("id") Long id,
             @RequestBody() ExpenseDto expenseDto
     ) {
-        Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getDate(), expenseDto.getCategory());
+        Expense expense = new Expense(expenseDto.getAmount(), expenseDto.getCategory(), expenseDto.getDescription());
         try {
             Expense newExpense = expenseService.create(expense);
             return ResponseEntity.status(HttpStatus.OK).body(newExpense);

@@ -20,9 +20,10 @@ public class CategoryController {
     @GetMapping("/category-list")
     public ResponseEntity<Object> getAllCategories() {
         try {
-            List<Category> expenses = categoryService.listAll();
-            return ResponseEntity.status(HttpStatus.OK).body(expenses);
+            List<Category> categories = categoryService.listAll();
+            return ResponseEntity.status(HttpStatus.OK).body(categories);
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No se pudo obtener la lista de categorias");
         }
     }
@@ -43,7 +44,6 @@ public class CategoryController {
 
     @PostMapping("/")
     public ResponseEntity<Object> createCategory(
-            @PathVariable("id") Long id,
             @RequestBody() CategoryDto categoryDto
     ) {
         Category category = new Category(categoryDto.getName());

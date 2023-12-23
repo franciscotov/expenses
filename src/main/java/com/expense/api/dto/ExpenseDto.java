@@ -6,8 +6,16 @@ import java.util.Date;
 
 public class ExpenseDto {
     private Float amount;
-    private Date date;
     private Category category;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Category getCategory() {
         return category;
@@ -25,14 +33,6 @@ public class ExpenseDto {
         this.amount = amount;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     private int counter(){
         return 1;
     }
@@ -41,7 +41,6 @@ public class ExpenseDto {
     public String toString() {
         return "Expense{" +
                 ", amount=" + amount +
-                ", date=" + date +
                 ", expenseCategory=" + category +
                 '}';
     }
